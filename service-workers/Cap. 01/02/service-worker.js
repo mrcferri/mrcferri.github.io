@@ -3,5 +3,5 @@ self.addEventListener('install', function(e) {
 });
 
 self.addEventListener('activate', function(e) {
-  console.log('Activate Event:', e);
+  console.log('Activate Event(-----):', e);
 });
