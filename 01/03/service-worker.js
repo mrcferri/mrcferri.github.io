@@ -1,23 +1,28 @@
-self.addEventListener('fetch', event => {
-   console.log(`Handling fetch event for ${event.request.url}`);
-   let requestURL = new URL(event.request.url);
-   if (requestURL.pathname === '/urlshortener/v1/url' && requestURL.headers.has('X-Mock-Response'))
-    let response = {
-     body:{
-      kind:'urlshortener#url',
-       id: 'http://goo.gl/IKyjuU',
-       longUrl: 'https://slightlyoff.github.io/ServiceWorker/spec/service_worker/index.html'
-     },
+self.addEventListener('fetch', function(event) {
+  var requestUrl = new URL(event.request.url);
+
+  if (requestUrl.pathname === '/urlshortener/v1/url' &&
+      event.request.headers.has('X-Mock-Response')) {
+
+    var response = {
+      body: {
+        kind: 'urlshortener#url',
+        id: 'https://goo.gl/KqR3lJ',
+        longUrl: 'https://www.packtpub.com/books/info/packt/about'
+      },
       init: {
         status: 200,
         statusText: 'OK',
         headers: {
-        'Content-Type': 'application/json',
-        'X-Mock-Response': 'yes'
+          'Content-Type': 'application/json',
+          'X-Mock-Response': 'yes'
         }
-     }
+      }
     };
-    let mockResponse = new Response(JSON.stringify(response.body), response.init);
-    console.log('Responding with a mock response body:', response.body);
+
+    var mockResponse = new Response(JSON.stringify(response.body), response.init);
+
+    console.log('Mock Response: ', response.body);
     event.respondWith(mockResponse);
-   })
+  }
+});
